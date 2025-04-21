@@ -1,5 +1,5 @@
 import 'package:final_project/view/auth/widget/custom_botton.dart';
-import 'package:final_project/view/home/trainer_home_screen/screen/home_screen.dart';
+import 'package:final_project/view/home/trainer_home_screen/screen/trainer_home_screen.dart';
 import 'package:final_project/view/select_coach_screen/controller/select_coach_controller.dart';
 import 'package:final_project/view/select_coach_screen/widget/coach_details_sheet.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +103,7 @@ class SelectCoachScreen extends StatelessWidget {
                     CustomButton(
                       text: 'Next',
                       onTap: () {
-                        Get.to(HomeScreen());
+                        Get.to(TrainerHomeScreen());
                       },
                     ),
                   ],

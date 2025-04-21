@@ -10,7 +10,7 @@ class CircularProgressIndicatorCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black.withOpacity(0.4),
-      child: Center(
+      child: const Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -22,8 +22,8 @@ class CircularProgressIndicatorCustom extends StatelessWidget {
                 strokeWidth: 7,
               ),
             ),
-            const SizedBox(height: 16),
-            const Text(
+            SizedBox(height: 16),
+            Text(
               "Please wait...",
               style: TextStyle(
                 fontSize: 25,

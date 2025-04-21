@@ -1,12 +1,11 @@
 import 'package:final_project/core/const_data/app_colors.dart';
-import 'package:final_project/view/home/static/static_coach_section_data/static_coach_section_data.dart';
 import 'package:final_project/view/home/drawer/drawer_screen.dart';
-import 'package:final_project/view/home/widget/coach_section_card/coach_section_card.dart';
-
+import 'package:final_project/view/home/static/static_trainer_section_data/static_scection_data.dart';
+import 'package:final_project/view/home/widget/trainer_section_card/trainer_section_card.dart';
 import 'package:flutter/material.dart';
 
-class CoachHomeScreen extends StatelessWidget {
-  const CoachHomeScreen({super.key});
+class TrainerHomeScreen extends StatelessWidget {
+  const TrainerHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class CoachHomeScreen extends StatelessWidget {
       ),
       drawer: DrawerScreen(),
       body: GridView.builder(
-        itemCount: StaticCoachScectionData.coachSections.length,
+        itemCount: StaticTrainerScectionData.trainersSections.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 5,
@@ -52,7 +51,7 @@ class CoachHomeScreen extends StatelessWidget {
         ),
         itemBuilder: (context, index) => SizedBox(
           // height: 100,
-          child: CoachSectionCard(
+          child: TrainerSectionCard(
             index: index,
           ),
         ),
