@@ -14,5 +14,5 @@ class AppColor {
   static const Color cheakButtonColor = Color(0xffD9D9D9);
   static const Color iconSearchColor = Color(0xff001A72);
   static const Color followColor = Color(0xFF009688);
-  static Color green = const Color(0xff126b0c);
+  static const Color green = Color(0xff126b0c);
 }

@@ -1,10 +1,9 @@
 import 'package:final_project/core/const_data/app_colors.dart';
 import 'package:final_project/models/request_model/request_model.dart';
 import 'package:final_project/view/auth/widget/custom_botton.dart';
-import 'package:final_project/view/requests_screen/widget/request_detail_sheet.dart';
+import 'package:final_project/view/coach/requests_screen/widget/request_detail_sheet.dart';
 import 'package:final_project/view/home/coach_home_screen/controller/coach_home_controller.dart';
-import 'package:final_project/view/request_details_screen/screen/request_details_screen.dart';
-import 'package:final_project/view/requests_screen/controller/requests_controller.dart';
+import 'package:final_project/view/coach/requests_screen/controller/requests_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

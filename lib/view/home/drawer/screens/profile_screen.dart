@@ -51,14 +51,14 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 10, bottom: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, bottom: 10),
                           child: Text(
                             "Me Profile",
                             style: TextStyle(
                                 color: AppColor.primaryColor,
                                 fontSize: 25,
-                                shadows: [
+                                shadows: const [
                                   Shadow(
                                       color: Colors.black12,
                                       blurRadius: 0.9,

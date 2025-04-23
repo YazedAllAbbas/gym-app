@@ -75,12 +75,12 @@ class CoachSectionCard extends StatelessWidget {
                       ),
                       child: Text(
                         StaticCoachScectionData.coachSections[index].name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           fontFamily: "SourceSerif4",
                           color: AppColor.primaryColor,
                           fontWeight: FontWeight.bold,
-                          shadows: [
+                          shadows: const [
                             Shadow(
                               color: Colors.black12,
                               blurRadius: 0.4,

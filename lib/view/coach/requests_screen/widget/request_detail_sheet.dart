@@ -1,6 +1,9 @@
 import 'package:final_project/core/const_data/app_colors.dart';
+import 'package:final_project/core/const_data/routes.dart';
 import 'package:final_project/models/user_info_model/user_info_model.dart';
-import 'package:final_project/view/requests_screen/controller/requests_controller.dart';
+import 'package:final_project/routes.dart';
+import 'package:final_project/view/coach/build_program/screen/build_program_screen.dart';
+import 'package:final_project/view/coach/requests_screen/controller/requests_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:final_project/models/request_model/request_model.dart';
@@ -134,7 +137,6 @@ class RequestDetailsSheet extends StatelessWidget {
                   style: TextStyle(fontSize: 16, color: AppColor.grey),
                 ),
               const SizedBox(height: 30),
-            
               Row(
                 children: [
                   Expanded(
@@ -143,9 +145,12 @@ class RequestDetailsSheet extends StatelessWidget {
                         Navigator.pop(context);
                         await Get.find<RequestsController>()
                             .responsetojoinrequest(
-                          request.id, 
-                          "Accept", 
+                          request.id,
+                          "Accept",
                         );
+                    //   Get.offNamed('/makeProgramScreen');
+                    //    Get.to(() => const MakeProgramScreen());
+                  //  Get.to(() => BuildProgramScreen(user: user!));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.primaryColor,
@@ -167,8 +172,8 @@ class RequestDetailsSheet extends StatelessWidget {
                         Navigator.pop(context);
                         await Get.find<RequestsController>()
                             .responsetojoinrequest(
-                          request.id, 
-                          "Reject", 
+                          request.id,
+                          "Reject",
                         );
                       },
                       style: ElevatedButton.styleFrom(

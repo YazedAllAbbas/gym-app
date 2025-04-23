@@ -83,9 +83,10 @@ class crud {
 
           // التحقق مما إذا كانت الاستجابة كائنًا
           if (responseBody is Map<String, dynamic>) {
-            return Right(responseBody);
+            return Right(responseBody); 
           } else {
-            return const Left(StatusRequest.serverFailure);
+            return const Left(
+                StatusRequest.serverFailure); 
           }
         } else {
           return const Left(StatusRequest.serverFailure);
@@ -98,6 +99,11 @@ class crud {
       return const Left(StatusRequest.serverFailure);
     }
   }
+
+
+
+
+
 
   Future<Either<StatusRequest, Map>> updateData(
       String linkUrl, Map data, Map<String, String> header) async {

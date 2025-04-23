@@ -8,11 +8,12 @@ import 'package:final_project/view/auth/register/screen/screens/register_screen.
 import 'package:final_project/view/auth/register/screen/screens/second_screen.dart';
 import 'package:final_project/view/auth/register/screen/screens/usertype_screen.dart';
 import 'package:final_project/view/auth/splash/screen/splash_screen.dart';
+import 'package:final_project/view/coach/build_program/screen/build_program_screen.dart';
 import 'package:final_project/view/home/coach_home_screen/screen/coach_home_screen.dart';
 
 import 'package:final_project/view/home/trainer_home_screen/screen/trainer_home_screen.dart';
-import 'package:final_project/view/my_trainee/screen/my_trainee_screen.dart';
-import 'package:final_project/view/requests_screen/screen/requests_screen.dart';
+import 'package:final_project/view/coach/my_trainee/screen/my_trainee_screen.dart';
+import 'package:final_project/view/coach/requests_screen/screen/requests_screen.dart';
 import 'package:final_project/view/select_coach_screen/screen/select_coach_screen.dart';
 import 'package:get/get.dart';
 
@@ -37,10 +38,14 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: "/coachHomeScreen", page: () => const CoachHomeScreen()),
   GetPage(name: "/requestsScreen", page: () => const RequestsScreen()),
   GetPage(name: "/myTraineeScreen", page: () => const MyTraineeScreen()),
+  //GetPage(name: "/makeProgramScreen", page: () => const BuildProgramScreen()),
+  
 
   /////////////////profile////////////////////////
 
   //////////////////////////setting////////////////////////
+
+
 ];
 
 //

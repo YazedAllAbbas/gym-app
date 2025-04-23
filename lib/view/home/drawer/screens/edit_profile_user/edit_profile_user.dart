@@ -177,7 +177,7 @@ class EditProfileUser {
               children: [
                 Text(
                   "Select $title",
-                  style: const TextStyle(
+                  style:  TextStyle(
                       fontSize: 20,
                       color: AppColor.primaryColor,
                       fontWeight: FontWeight.bold,
@@ -241,7 +241,7 @@ class EditProfileUser {
                         onSave(selectedValue);
                         Get.back();
                       },
-                      child: const Text(
+                      child:  Text(
                         "Save",
                         style: TextStyle(
                             fontSize: 20,

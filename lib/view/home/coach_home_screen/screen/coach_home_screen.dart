@@ -2,7 +2,6 @@ import 'package:final_project/core/const_data/app_colors.dart';
 import 'package:final_project/view/home/static/static_coach_section_data/static_coach_section_data.dart';
 import 'package:final_project/view/home/drawer/drawer_screen.dart';
 import 'package:final_project/view/home/widget/coach_section_card/coach_section_card.dart';
-
 import 'package:flutter/material.dart';
 
 class CoachHomeScreen extends StatelessWidget {
@@ -60,3 +59,4 @@ class CoachHomeScreen extends StatelessWidget {
     );
   }
 }
+

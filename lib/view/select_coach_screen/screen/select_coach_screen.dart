@@ -1,8 +1,10 @@
+import 'package:final_project/core/const_data/app_colors.dart';
 import 'package:final_project/view/auth/widget/custom_botton.dart';
-import 'package:final_project/view/home/trainer_home_screen/screen/trainer_home_screen.dart';
 import 'package:final_project/view/select_coach_screen/controller/select_coach_controller.dart';
 import 'package:final_project/view/select_coach_screen/widget/coach_details_sheet.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class SelectCoachScreen extends StatelessWidget {
@@ -20,10 +22,21 @@ class SelectCoachScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   children: [
+                    //     IconButton(
+                    //       icon: Icon(Icons.arrow_back),
+                    //       onPressed: () {
+                    //         Get.back();
+                    //       },
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(
                       height: media.width * 0.13,
                     ),
-                    const Text("Select a coach to start your fitness journey",
+                    Text("Select a coach to start your fitness journey",
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -33,7 +46,7 @@ class SelectCoachScreen extends StatelessWidget {
                       height: media.width * 0.12,
                     ),
                     controller.isLoading
-                        ? const Center(
+                        ? Center(
                             child: CircularProgressIndicator(),
                           )
                         : Expanded(
@@ -57,40 +70,54 @@ class SelectCoachScreen extends StatelessWidget {
                                           controller.selectCoach(index);
                                           controller.sendRequestToCoach(
                                               coach.id.toString());
+                          
                                         },
                                       ),
                                     );
                                   },
                                   child: Container(
-                                    margin:
-                                        const EdgeInsets.symmetric(vertical: 8),
-                                    padding: const EdgeInsets.symmetric(
+                                    margin: EdgeInsets.symmetric(vertical: 8),
+                                    padding: EdgeInsets.symmetric(
                                         vertical: 16, horizontal: 16),
+                                    // decoration: BoxDecoration(
+                                    //   color:
+
+                                    //        Colors.white,
+                                    //   borderRadius: BorderRadius.circular(12),
+                                    //   border: Border.all(
+                                    //     color:
+
+                                    //          Colors.transparent,
+
+                                    //   ),
+                                    // ),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(12),
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: Colors
+                                            .grey.shade300,
                                         width: 1.2,
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.grey.withOpacity(0.1),
+                                          color: Colors.grey.withOpacity(
+                                              0.1), 
                                           blurRadius: 6,
-                                          offset: const Offset(0, 3),
+                                          offset: Offset(0, 3),
                                         ),
                                       ],
                                     ),
                                     child: Column(children: [
                                       Text(
                                         coach.username,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black,
                                             fontFamily: 'Poppins'),
                                       ),
-                                      const SizedBox(height: 8),
+                                      SizedBox(height: 8),
                                     ]),
                                   ),
                                 );
@@ -100,12 +127,19 @@ class SelectCoachScreen extends StatelessWidget {
                     SizedBox(
                       height: media.width * 0.2,
                     ),
-                    CustomButton(
-                      text: 'Next',
-                      onTap: () {
-                        Get.to(TrainerHomeScreen());
-                      },
-                    ),
+                    // CustomButton(
+                    //   text: 'Next',
+                    //   onTap: () {
+                    //     FocusScope.of(context).unfocus();
+                    //     // Get.offNamed('/secondScreen');
+                    //     //  controller.register();
+                    //     controller.sendRequestToCoach(controller
+                    //         .coaches[controller.selectedCoachIndex].id
+                    //         .toString());
+
+                    //     // Get.toNamed('/experianseScreen');
+                    //   },
+                    // ),
                   ],
                 ),
               ),

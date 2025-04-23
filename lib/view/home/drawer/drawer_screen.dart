@@ -21,7 +21,7 @@ class DrawerScreen extends StatelessWidget {
                 height: 170,
                 child: GetBuilder<UserController>(
                   builder: (controller) => UserAccountsDrawerHeader(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColor.primaryColor,
                     ),
                     currentAccountPictureSize: const Size(60, 60),

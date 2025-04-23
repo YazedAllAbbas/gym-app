@@ -48,6 +48,10 @@ class UserController extends GetxController {
     }
   }
 
+
+
+
+
   Future<Either<StatusRequest, Map>> updateUserField(
       String field, String value) async {
     try {

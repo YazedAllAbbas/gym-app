@@ -7,6 +7,8 @@ import 'package:final_project/core/service/app_keys.dart';
 import 'package:final_project/core/service/link.dart';
 import 'package:final_project/core/service/my_service.dart';
 import 'package:final_project/core/service/session/user_info_controller.dart';
+import 'package:final_project/core/service/session/user_session.dart';
+import 'package:final_project/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -71,7 +73,7 @@ class LoginController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.grey[200],
             colorText: Colors.black,
-            margin: const EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
             borderRadius: 8,
             boxShadows: [
               BoxShadow(
@@ -94,9 +96,23 @@ class LoginController extends GetxController {
         // حالة النجاح
         isLoading = false;
         responce = StatusRequest.success;
+
+        //  UserModel userModel = UserModel.fromJson(Map<String, dynamic>.from(success));
+
         final userController = Get.put(UserController(), permanent: true);
         await userController.getInfo();
 
+        // حفظ بيانات المستخدم باستخدام SharedPreferences
+        // await MyService().saveStringValue(
+        //     AppKeys.userIdKey, userModel.user.id.toString());
+        // await MyService().saveStringValue(AppKeys.userfirstNameKey, userModel.user.firstName);
+
+// await MyService().saveStringValue(
+//     AppKeys.userDataKey,
+//     json.encode(userModel.toJson()) // تحويل كامل الكائن لـ JSON
+//   );
+//   await UserSession.getInfo();
+        //  String successMessage = success['message'];
         Get.snackbar(
           " ",
           // successMessage,
@@ -104,17 +120,20 @@ class LoginController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.grey[200],
           colorText: Colors.black,
-          margin: const EdgeInsets.all(10),
+          margin: EdgeInsets.all(10),
           borderRadius: 8,
           boxShadows: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 1,
               blurRadius: 5,
-              offset: const Offset(0, 3),
+              offset: Offset(0, 3),
             ),
           ],
         );
+        // String? userId = await MyService().getStringValue(AppKeys.userIdKey);
+        // print("______________${userId}");
+        // Get.toNamed(Routes.homeScreen);
 
         String userType = userController.currentUser!.userType;
         await MyService().saveStringValue(AppKeys.userTypeKey, userType);

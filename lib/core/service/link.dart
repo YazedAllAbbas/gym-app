@@ -12,12 +12,15 @@ class AppLink {
   static String getjoinrequests = "$appRoot/getjoinrequests";
   static String getuser = "$appRoot/user";
   static String getInfo = "$appRoot/getInfo/";
-  static String update_profile = "$appRoot/update_profile/";
-  static String delete_account = "$appRoot/delete/";
-
   static String responsetojoinrequest = "$appRoot/responsetojoinrequest";
   static String traineesWithSpecificCoach = "$appRoot/trainers";
+  static String getExercises = "$appRoot/exercises/listexercises/";
+  static String exercisesbymuscle = "$appRoot/exercises/by-muscle";
 
+  static String makeprogram = "$appRoot/exercises/makeprogram";
+
+  static String update_profile = "$appRoot/update_profile/";
+  static String delete_account = "$appRoot/delete/";
   Map<String, String> getHeader() {
     Map<String, String> mainHeader = {
       'Content - Type': 'application/json',

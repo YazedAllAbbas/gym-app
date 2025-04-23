@@ -128,17 +128,17 @@ class RegisterController extends GetxController {
     double height = heightModel.value.height;
     Either<StatusRequest, Map> result =
         await crud().postData(AppLink.register, {
-      "phone": this.phoneController.text,
       "username": this.usernameController.text,
       "first_name": this.firstnameController.text,
       "last_name": this.lastnameController.text,
       "email": this.emailController.text,
       "password": this.passwordController.text,
-      "weight": currentValue.toStringAsFixed(1),
-      "height": height.toStringAsFixed(1),
+      "weight": currentValue.toString(),
+      "height": height.toString(),
       "experianse_level": experianse_level[experianseLevelIndex],
       "goal": goals[selectedGoalIndex],
-      "gender": SelectedGender(),
+      "gender": selectedGenderIndex.value,
+      "phone": this.phoneController.text,
     }, {
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -179,6 +179,19 @@ class RegisterController extends GetxController {
         responce = StatusRequest.success;
         final userController = Get.put(UserController(), permanent: true);
         await userController.getInfo();
+
+        // String userId = success['user']['id'].toString();
+        // await MyService().saveStringValue(AppKeys.userIdKey, userId.toString());
+
+//        UserModel userModel = UserModel.fromJson(Map<String, dynamic>.from(success));
+// await MyService().saveStringValue(
+//     AppKeys.userDataKey,
+//     json.encode(userModel.toJson()) // تحويل كامل الكائن لـ JSON
+//   );
+//   await UserSession.loadUser();
+        // حفظ بيانات المستخدم باستخدام SharedPreferences
+        // await MyService().saveStringValue(
+        //   AppKeys.userIdKey, userModel.user.id.toString());
 
         String successMessage = "success";
         Get.snackbar(
@@ -221,6 +234,7 @@ class RegisterController extends GetxController {
     selectedGenderIndex.value = index;
   }
 
+
   String SelectedGender() {
     return genders[selectedGenderIndex.value].caption;
   }
@@ -232,6 +246,7 @@ class RegisterController extends GetxController {
       val?.height = value;
     });
   }
+
 
   double getHeight() {
     return heightModel.value.height;

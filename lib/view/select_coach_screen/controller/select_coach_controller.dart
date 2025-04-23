@@ -2,9 +2,16 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:final_project/core/class/crud.dart';
 import 'package:final_project/core/class/status_request.dart';
+import 'package:final_project/core/const_data/app_colors.dart';
+import 'package:final_project/core/const_data/routes.dart';
+import 'package:final_project/core/service/app_keys.dart';
 import 'package:final_project/core/service/link.dart';
+import 'package:final_project/core/service/my_service.dart';
 import 'package:final_project/core/service/session/user_info_controller.dart';
+import 'package:final_project/core/service/session/user_session.dart';
+import 'package:final_project/models/coach_model/coach_model.dart';
 import 'package:final_project/models/user_info_model/user_info_model.dart';
+import 'package:final_project/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -78,20 +85,20 @@ class SelectCoachController extends GetxController {
   Future sendRequestToCoach(String coachId) async {
     try {
       Get.dialog(
-        const Center(
+        Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+           mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
+              const CircularProgressIndicator(),
+              const SizedBox(height: 16),
               Text(
                 "Please wait...",
                 style: TextStyle(
                   decoration: TextDecoration.none,
                   fontSize: 16,
-                  color: Color(0xFFF0F8FF),
+                  color:  Color(0xFFF0F8FF),
                 ),
               ),
             ],
@@ -150,25 +157,26 @@ class SelectCoachController extends GetxController {
       }
       result.fold(
         (failure) {
+          
           if (failure == StatusRequest.failure) {
-            this.responceMessage = crud.message;
-            Get.snackbar(
-              " ",
-              responceMessage,
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.grey[200],
-              colorText: Colors.black,
-              margin: EdgeInsets.all(10),
-              borderRadius: 8,
-              boxShadows: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
-                ),
-              ],
-            );
+                this.responceMessage = crud.message;
+          Get.snackbar(
+            " ",
+            responceMessage,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.grey[200],
+            colorText: Colors.black,
+            margin: EdgeInsets.all(10),
+            borderRadius: 8,
+            boxShadows: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: Offset(0, 3),
+              ),
+            ],
+          );
           } else if (failure == StatusRequest.offLineFailure) {
             Get.defaultDialog(
                 title: "Error", middleText: "No internet connection.");
