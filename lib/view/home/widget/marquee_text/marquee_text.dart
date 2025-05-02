@@ -2,6 +2,7 @@
 
 import 'package:final_project/core/const_data/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
 
 class MarqueeText extends StatelessWidget {
@@ -15,7 +16,7 @@ class MarqueeText extends StatelessWidget {
       height: 30,
       child: Marquee(
           text: text,
-          style: const TextStyle(
+          style: TextStyle(
               fontFamily: "SourceSerif4",
               fontWeight: FontWeight.w400,
               fontSize: 13,

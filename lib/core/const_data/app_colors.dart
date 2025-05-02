@@ -15,4 +15,8 @@ class AppColor {
   static const Color iconSearchColor = Color(0xff001A72);
   static const Color followColor = Color(0xFF009688);
   static const Color green = Color(0xff126b0c);
+  static const Color yellow = Color(0xffFDEC92);
+  static const Color blue =  Color(0xFFD6EDFF);
+  
+   
 }

@@ -9,12 +9,15 @@ import 'package:final_project/view/auth/register/screen/screens/second_screen.da
 import 'package:final_project/view/auth/register/screen/screens/usertype_screen.dart';
 import 'package:final_project/view/auth/splash/screen/splash_screen.dart';
 import 'package:final_project/view/coach/build_program/screen/build_program_screen.dart';
+import 'package:final_project/view/exercises/exercises_screen/exercises_screen.dart';
 import 'package:final_project/view/home/coach_home_screen/screen/coach_home_screen.dart';
 
 import 'package:final_project/view/home/trainer_home_screen/screen/trainer_home_screen.dart';
 import 'package:final_project/view/coach/my_trainee/screen/my_trainee_screen.dart';
 import 'package:final_project/view/coach/requests_screen/screen/requests_screen.dart';
-import 'package:final_project/view/select_coach_screen/screen/select_coach_screen.dart';
+import 'package:final_project/view/trainee/my_program/screen/my_program_screen.dart';
+import 'package:final_project/view/trainee/my_program/workout_program.dart';
+import 'package:final_project/view/trainee/select_coach_screen/screen/select_coach_screen.dart';
 import 'package:get/get.dart';
 
 List<GetPage<dynamic>>? routes = [
@@ -39,7 +42,10 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: "/requestsScreen", page: () => const RequestsScreen()),
   GetPage(name: "/myTraineeScreen", page: () => const MyTraineeScreen()),
   //GetPage(name: "/makeProgramScreen", page: () => const BuildProgramScreen()),
-  
+    GetPage(name: "/myProgramScreen", page: () => const MyProgramScreen()),
+    GetPage(name: "/workoutProgram", page: () => const WorkoutProgram()),
+    GetPage(name: "/exercisesScreen", page: () =>  ExercisesScreen()),
+    
 
   /////////////////profile////////////////////////
 

@@ -15,6 +15,9 @@ class Routes {
   static String requestsScreen = "/requestsScreen";
   static String myTraineeScreen = "/myTraineeScreen";
   static String makeProgramScreen = "/makeProgramScreen";
+  static String myProgramScreen = "/myProgramScreen";
+  static String workoutProgram = "/workoutProgram";
+  static String exercisesScreen = "/exercisesScreen";
   
   
   

@@ -25,7 +25,7 @@ class UsertypeScreen extends StatelessWidget {
                         height: media.width * 0.3,
                       ),
 
-                      Text("Are you a coach or a trainer?",
+                      Text("Are you a coach or a trainee?",
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -100,7 +100,7 @@ class UsertypeScreen extends StatelessWidget {
                                 ),
                               ),
                               child: Text(
-                                "Trainer",
+                                "Trainee",
                                 textAlign: TextAlign.center,
 
                                 style: TextStyle(

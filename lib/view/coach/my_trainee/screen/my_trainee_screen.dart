@@ -4,6 +4,7 @@ import 'package:final_project/view/auth/widget/custom_botton.dart';
 import 'package:final_project/view/coach/build_program/screen/build_program_screen.dart';
 import 'package:final_project/view/coach/my_trainee/widget/trainee_details_sheet.dart';
 import 'package:final_project/view/coach/requests_screen/widget/request_detail_sheet.dart';
+import 'package:final_project/view/coach/view_trainee_workout/view_workout_screen/view_workout_screen.dart';
 import 'package:final_project/view/home/coach_home_screen/controller/coach_home_controller.dart';
 import 'package:final_project/view/coach/my_trainee/controller/my_trainee_controller.dart';
 import 'package:flutter/material.dart';
@@ -48,29 +49,6 @@ class MyTraineeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   children: [
-                    //     IconButton(
-                    //       icon: Icon(Icons.arrow_back),
-                    //       onPressed: () {
-                    //         Get.back();
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: media.width * 0.03,
-                    // // ),
-                    // Text("My trainee",
-                    //     style: TextStyle(
-                    //         fontSize: 26,
-                    //         fontWeight: FontWeight.bold,
-                    //         //  fontWeight: FontWeight.w700,
-                    //         fontFamily: 'SourceSerif4')),
-                    // SizedBox(
-                    //   height: 20.h,
-                    // ),
                     Row(
                       children: [
                         Text(
@@ -82,7 +60,6 @@ class MyTraineeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-
                     Expanded(
                       child: controller.isLoading
                           ? Center(
@@ -107,162 +84,190 @@ class MyTraineeScreen extends StatelessWidget {
                                                 trainee.id.toString()] ??
                                             false;
                                     return GestureDetector(
-                                        onTap: () async {
-                                          // controller.selectRequest(request);
-                                          // await controller
-                                          //     .fetchUserDetails(request.userId);
-                                          //  controller.fetchUserDetails(request.userId);
-                                          // showModalBottomSheet(
-                                          //   context: context,
-                                          //   isScrollControlled: true,
-                                          //   backgroundColor: Colors.transparent,
-                                          //   builder: (_) => RequestDetailsSheet(
-                                          //     request: request,
-                                          //     user: controller
-                                          //         .selectedUser,
-                                          //     isLoading: controller
-                                          //         .isUserLoading,
-                                          //   ),
-                                          // );
-                                          // if (!controller.isUserLoading) {
-                                          //   showModalBottomSheet(
-                                          //     context: context,
-                                          //     isScrollControlled: true,
-                                          //     backgroundColor: Colors.transparent,
-                                          //     builder: (_) => RequestDetailsSheet(
-                                          //       request: request,
-                                          //       user: controller.selectedUser,
-                                          //       isLoading:
-                                          //           controller.isUserLoading,
-                                          //     ),
-                                          //   );
-                                          // }
-
-                                          //  showRequestDetailsSheet(context, request);
-
-                                          // Get.to(() => RequestDetailsScreen());
-                                        },
+                                        onTap: () async {},
                                         child: Container(
-                                          margin:
-                                              EdgeInsets.symmetric(vertical: 6),
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 12, horizontal: 16),
-                                          decoration: BoxDecoration(
-                                            //  color: Color(0xffFFEC8B),
-                                            // color: Color(0xffB6F075),
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            border: Border.all(
-                                                color: Colors.grey.shade300,
-                                                width: 1),
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 6),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 12, horizontal: 16),
+                                            decoration: BoxDecoration(
+                                              //  color: Color(0xffFFEC8B),
+                                              // color: Color(0xffB6F075),
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                  color: Colors.grey.shade300,
+                                                  width: 1),
 
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.1),
-                                                blurRadius: 6,
-                                                offset: Offset(0, 4),
-                                              ),
-                                            ],
-                                          ),
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment
-                                                .center, // ✨ الصورة في المنتصف عموديًا
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor:
-                                                    AppColor.primaryColor,
-                                                radius: 28,
-                                                child: Text(
-                                                  trainee.username
-                                                      .substring(0, 1)
-                                                      .toUpperCase(),
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.1),
+                                                  blurRadius: 6,
+                                                  offset: Offset(0, 4),
                                                 ),
-                                              ),
-                                              SizedBox(width: 16),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      trainee.username,
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontFamily: 'Poppins',
+                                              ],
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          CircleAvatar(
+                                                            backgroundColor:
+                                                                AppColor
+                                                                    .primaryColor,
+                                                            radius: 28,
+                                                            child: Text(
+                                                              trainee.username
+                                                                  .substring(
+                                                                      0, 1)
+                                                                  .toUpperCase(),
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 20),
+                                                            ),
+                                                          ),
+                                                          SizedBox(width: 16),
+                                                          Expanded(
+                                                            child: Text(
+                                                              trainee.username,
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                    SizedBox(height: 8),
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        Get.to(() =>
-                                                            BuildProgramScreen(
-                                                                user:
-                                                                    trainee!));
-                                                      },
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        backgroundColor:
-                                                            //  Color(
-                                                            //     0xFFDFFFB3),
-
-                                                            Color(0xFFFFF6C2),
-                                                        elevation: 0,
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal: 18,
-                                                                vertical: 6),
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(12),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        hasProgram
-                                                            ? 'Show Program'
-                                                            : 'Make Program',
-                                                        style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.black87,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                      SizedBox(height: 12),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child:
+                                                                ElevatedButton(
+                                                              onPressed: () {
+                                                                hasProgram
+                                                                    ? Get.to(() =>
+                                                                        ViewWorkoutScreen(
+                                                                            user:
+                                                                                trainee))
+                                                                    : Get.to(() =>
+                                                                        BuildProgramScreen(
+                                                                            user:
+                                                                                trainee));
+                                                              },
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                backgroundColor:
+                                                                  // Color(0xFFD1D9FF),
+                                                                   Color(0xFFD6EDFF),
+                                                                elevation: 0,
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        vertical:
+                                                                            4),
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12),
+                                                                ),
+                                                              ),
+                                                              child: Text(
+                                                                hasProgram
+                                                                    ? 'View Workout'
+                                                                    : 'Create Workout',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .black87,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          SizedBox(width: 6),
+                                                          Expanded(
+                                                            child:
+                                                                ElevatedButton(
+                                                              onPressed: () {},
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                backgroundColor:
+                                                                    // Color(
+                                                                    //     0xFFB2E9DB),
+                                                                  Color(0xFFD1D9FF),
+                                                                      //  Color(0xFFF6E9F8),
+                                                                    //  backgroundColor: Color(0xFFF2D9FF),
+                                                                elevation: 0,
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        vertical:
+                                                                            4),
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12),
+                                                                ),
+                                                              ),
+                                                              child: Text(
+                                                                'Create Diet',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .black87,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              IconButton(
-                                                icon: Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    size: 18,
-                                                    color: Colors.grey),
-                                                onPressed: () {
-                                                  showModalBottomSheet(
-                                                    context: context,
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    builder: (_) =>
-                                                        TraineeDetailsSheet(
-                                                      trainee: trainee,
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ));
+                                                IconButton(
+                                                  icon: Icon(
+                                                      Icons.arrow_forward_ios,
+                                                      size: 18,
+                                                      color: Colors.grey),
+                                                  onPressed: () {
+                                                    showModalBottomSheet(
+                                                      context: context,
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      builder: (_) =>
+                                                          TraineeDetailsSheet(
+                                                              trainee: trainee),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            )));
                                   },
                                 ),
                     ),

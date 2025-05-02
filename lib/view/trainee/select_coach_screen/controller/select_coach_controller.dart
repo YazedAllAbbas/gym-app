@@ -9,7 +9,6 @@ import 'package:final_project/core/service/link.dart';
 import 'package:final_project/core/service/my_service.dart';
 import 'package:final_project/core/service/session/user_info_controller.dart';
 import 'package:final_project/core/service/session/user_session.dart';
-import 'package:final_project/models/coach_model/coach_model.dart';
 import 'package:final_project/models/user_info_model/user_info_model.dart';
 import 'package:final_project/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';

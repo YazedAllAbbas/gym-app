@@ -2,6 +2,7 @@ import 'package:final_project/view/exercises/controller/exercises_controller.dar
 import 'package:final_project/view/exercises/exercises_screen/exercies_by_muscle_screen.dart';
 import 'package:final_project/view/exercises/widget/exercise_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:final_project/core/const_data/app_colors.dart';
 import 'package:final_project/view/exercises/static/static_muscle_section_data/static_muscle_section_data.dart';
@@ -15,17 +16,21 @@ class ExercisesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: AppColor.primaryColor),
-        title: const Text(
+        backgroundColor: AppColor.primaryColor,
+        iconTheme: const IconThemeData(color: AppColor.white),
+        title: Text(
           "Exercises",
           style: TextStyle(
-            fontSize: 30,
-            color: AppColor.primaryColor,
+            fontSize: isPortrait ? 30.sp : 20.sp,
+            color: AppColor.white,
             fontWeight: FontWeight.bold,
             fontFamily: "SourceSerif4",
-            shadows: [
+            shadows: const [
               Shadow(
                 color: Colors.black12,
                 blurRadius: 0.2,
@@ -35,13 +40,13 @@ class ExercisesScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        actions: const [
-          SizedBox(width: 8),
+        actions: [
+          SizedBox(width: 8.w),
           Icon(Icons.notifications_active_outlined,
-              color: AppColor.primaryColor, size: 28),
-          SizedBox(width: 10),
-          Icon(Icons.favorite, color: AppColor.primaryColor, size: 28),
-          SizedBox(width: 12),
+              color: AppColor.white, size: 28.r),
+          SizedBox(width: 10.w),
+          Icon(Icons.favorite, color: AppColor.white, size: 28.r),
+          SizedBox(width: 12.w),
         ],
       ),
       drawer: DrawerScreen(),
@@ -77,85 +82,183 @@ class ExercisesScreen extends StatelessWidget {
 
             return Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.all(16.0),
-                  child: TextField(
-                    onChanged: (value) => controller.setSearchQuery(value),
-                    decoration: InputDecoration(
-                      hintText: "Search for an exercise...",
-                      hintStyle: const TextStyle(fontFamily: "SourceSerif4"),
-                      prefixIcon: const Icon(Icons.search,
-                          color: AppColor.primaryColor),
-                      filled: true,
-                      fillColor: AppColor.primaryColor.withOpacity(0.05),
-                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                            color: AppColor.primaryColor.withOpacity(0.3)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
-                            color: AppColor.primaryColor, width: 2),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 16, left: 16),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => controller.toggleView(true),
-                          style: ElevatedButton.styleFrom(
-                            elevation: 3,
-                            backgroundColor: controller.showAll
-                                ? AppColor.primaryColor
-                                : Colors.grey.shade300,
-                            foregroundColor: Colors.white,
-                          ),
-                          child: Text(
-                            "All",
-                            style: TextStyle(
-                              color: controller.showAll
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              fontFamily: "SourceSerif4",
+                isPortrait
+                    ? Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(16.0.r),
+                            child: TextField(
+                              controller: controller.textController,
+                              onChanged: (value) =>
+                                  controller.setSearchQuery(value),
+                              decoration: InputDecoration(
+                                hintText: controller.showAll
+                                    ? "Search for an exercise..."
+                                    : "Search by muscle...",
+                                hintStyle:
+                                    const TextStyle(fontFamily: "SourceSerif4"),
+                                prefixIcon: const Icon(Icons.search,
+                                    color: AppColor.primaryColor),
+                                filled: true,
+                                fillColor:
+                                    AppColor.primaryColor.withOpacity(0.05),
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 10.r),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  borderSide: BorderSide(
+                                      color: AppColor.primaryColor
+                                          .withOpacity(0.3)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  borderSide: BorderSide(
+                                      color: AppColor.primaryColor, width: 2.w),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 11),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => controller.toggleView(false),
-                          style: ElevatedButton.styleFrom(
-                            elevation: 3,
-                            backgroundColor: !controller.showAll
-                                ? AppColor.primaryColor
-                                : Colors.grey.shade300,
-                            foregroundColor: Colors.white,
-                          ),
-                          child: Text(
-                            "By Muscle",
-                            style: TextStyle(
-                              color: controller.showAll
-                                  ? Colors.black
-                                  : Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              fontFamily: "SourceSerif4",
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 16.r),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton.icon(
+                                    onPressed: () =>
+                                        controller.toggleView(true),
+                                    icon: Icon(
+                                      Icons.list_alt_rounded,
+                                      color: controller.showAll
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    label: Text("All",
+                                        style: TextStyle(
+                                          color: controller.showAll
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: isPortrait ? 16.sp : 22.sp,
+                                          fontFamily: "SourceSerif4",
+                                        )),
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 3,
+                                      backgroundColor: controller.showAll
+                                          ? AppColor.primaryColor
+                                          : Colors.grey.shade300,
+                                      foregroundColor: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: screenWidth / 17),
+                                Expanded(
+                                  child: ElevatedButton.icon(
+                                    onPressed: () =>
+                                        controller.toggleView(false),
+                                    icon: Icon(
+                                      Icons.fitness_center_rounded,
+                                      color: controller.showAll
+                                          ? Colors.black
+                                          : Colors.white,
+                                    ),
+                                    label: Text(
+                                      "By Muscle",
+                                      style: TextStyle(
+                                        color: controller.showAll
+                                            ? Colors.black
+                                            : Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: isPortrait ? 16.sp : 22.sp,
+                                        fontFamily: "SourceSerif4",
+                                      ),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 3,
+                                      backgroundColor: !controller.showAll
+                                          ? AppColor.primaryColor
+                                          : Colors.grey.shade300,
+                                      foregroundColor: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+                        ],
+                      )
+                    : Container(
+                        margin: EdgeInsets.all(16.0.r),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: TextField(
+                                controller: controller.textController,
+                                onChanged: (value) =>
+                                    controller.setSearchQuery(value),
+                                decoration: InputDecoration(
+                                  hintText: controller.showAll
+                                      ? "Search for an exercise..."
+                                      : "Search by muscle...",
+                                  hintStyle: const TextStyle(
+                                      fontFamily: "SourceSerif4"),
+                                  prefixIcon: const Icon(Icons.search,
+                                      color: AppColor.primaryColor),
+                                  filled: true,
+                                  fillColor:
+                                      AppColor.primaryColor.withOpacity(0.05),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.r),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    borderSide: BorderSide(
+                                        color: AppColor.primaryColor
+                                            .withOpacity(0.3)),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    borderSide: BorderSide(
+                                        color: AppColor.primaryColor,
+                                        width: 2.w),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                            ElevatedButton.icon(
+                              onPressed: () => controller.toggleView(true),
+                              icon: const Icon(Icons.list),
+                              label: const Text("All"),
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12.w, vertical: 14.h),
+                                backgroundColor: controller.showAll
+                                    ? AppColor.primaryColor
+                                    : Colors.grey.shade300,
+                                foregroundColor: controller.showAll
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
+                            SizedBox(width: 8.w),
+                            ElevatedButton.icon(
+                              onPressed: () => controller.toggleView(false),
+                              icon: const Icon(Icons.fitness_center_rounded),
+                              label: const Text("By Muscle"),
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12.w, vertical: 14.h),
+                                backgroundColor: !controller.showAll
+                                    ? AppColor.primaryColor
+                                    : Colors.grey.shade300,
+                                foregroundColor: controller.showAll
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
                 Expanded(
                   child: controller.isLoading
                       ? const Center(child: CircularProgressIndicator())

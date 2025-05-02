@@ -50,9 +50,9 @@ class LoginController extends GetxController {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    this.isLoading = false;
-    this.responce = StatusRequest.loading;
-    update();
+this.isLoading = true;
+this.responce = StatusRequest.loading;
+update();
     Either<StatusRequest, Map> result = await crud().postData(AppLink.login, {
       "username": this.usernameController.text,
       "password": this.passwordController.text,
@@ -139,9 +139,9 @@ class LoginController extends GetxController {
         await MyService().saveStringValue(AppKeys.userTypeKey, userType);
 
         if (userType == 'coach') {
-          Get.offNamed(Routes.coachHomeScreen);
+          Get.offAllNamed(Routes.coachHomeScreen);
         } else if (userType == 'trainer') {
-          Get.offNamed(Routes.homeScreen);
+          Get.offAllNamed(Routes.homeScreen);
         } else {
           Get.snackbar(
             "Error",

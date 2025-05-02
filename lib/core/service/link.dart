@@ -15,11 +15,15 @@ class AppLink {
   static String responsetojoinrequest = "$appRoot/responsetojoinrequest";
   static String traineesWithSpecificCoach = "$appRoot/trainers";
   static String getExercises = "$appRoot/exercises/listexercises/";
-  static String exercisesbymuscle = "$appRoot/exercises/by-muscle";
-
   static String makeprogram = "$appRoot/exercises/makeprogram";
+  static String exercisesbymuscle = "$appRoot/exercises/by-muscle";
+  static String gettrainerprogram = "$appRoot/exercises/gettrainerprogram";
+  static String updateprogrambydays = "$appRoot/exercises/updateprogrambydays";
+  
+  
 
-  static String update_profile = "$appRoot/update_profile/";
+  
+static String update_profile = "$appRoot/update_profile/";
   static String delete_account = "$appRoot/delete/";
   Map<String, String> getHeader() {
     Map<String, String> mainHeader = {

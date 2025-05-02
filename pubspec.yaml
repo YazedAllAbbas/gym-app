@@ -44,9 +44,11 @@ dependencies:
   shared_preferences: ^2.2.3
   marquee: ^2.2.3
   numberpicker: ^2.1.2
-  intl: ^0.20.2
+  intl: 0.18.1
   flutter_number_picker: ^1.0.4
   video_player: ^2.9.2
+  device_preview: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:

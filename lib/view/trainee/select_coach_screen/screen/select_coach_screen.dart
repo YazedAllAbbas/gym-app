@@ -1,10 +1,6 @@
-import 'package:final_project/core/const_data/app_colors.dart';
-import 'package:final_project/view/auth/widget/custom_botton.dart';
-import 'package:final_project/view/select_coach_screen/controller/select_coach_controller.dart';
-import 'package:final_project/view/select_coach_screen/widget/coach_details_sheet.dart';
-import 'package:flutter/foundation.dart';
+import 'package:final_project/view/trainee/select_coach_screen/controller/select_coach_controller.dart';
+import 'package:final_project/view/trainee/select_coach_screen/widget/coach_details_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class SelectCoachScreen extends StatelessWidget {
@@ -70,7 +66,6 @@ class SelectCoachScreen extends StatelessWidget {
                                           controller.selectCoach(index);
                                           controller.sendRequestToCoach(
                                               coach.id.toString());
-                          
                                         },
                                       ),
                                     );
@@ -95,14 +90,12 @@ class SelectCoachScreen extends StatelessWidget {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(12),
                                       border: Border.all(
-                                        color: Colors
-                                            .grey.shade300,
+                                        color: Colors.grey.shade300,
                                         width: 1.2,
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.grey.withOpacity(
-                                              0.1), 
+                                          color: Colors.grey.withOpacity(0.1),
                                           blurRadius: 6,
                                           offset: Offset(0, 3),
                                         ),

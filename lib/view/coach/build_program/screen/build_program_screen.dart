@@ -1,4 +1,5 @@
 import 'package:final_project/core/const_data/app_colors.dart';
+import 'package:final_project/models/program_model/program_model.dart';
 import 'package:final_project/models/user_info_model/user_info_model.dart';
 import 'package:final_project/view/auth/widget/custom_botton.dart';
 import 'package:final_project/view/coach/build_program/controller/build_program_controller.dart';
@@ -7,33 +8,45 @@ import 'package:get/get.dart';
 
 class BuildProgramScreen extends StatelessWidget {
   final UserInfoModel user;
-  const BuildProgramScreen({super.key, required this.user});
+  final bool isEditMode;
+  final ProgramModel? existingProgram;
+  const BuildProgramScreen({
+    super.key,
+    required this.user,
+    this.isEditMode = false,
+    this.existingProgram,
+  });
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     final BuildProgramController controller = Get.put(BuildProgramController());
 
-    return GetBuilder<BuildProgramController>(
-      builder: (controller) => Scaffold(
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Get.back();
-                        },
-                      ),
-                    ],
-                  ),
-                  // SizedBox(height: 50),
+    return GetBuilder<BuildProgramController>(builder: (controller) {
+      if (isEditMode &&
+          existingProgram != null &&
+          !controller.isEditInitialized) {
+        controller.initializeEditProgram(existingProgram!);
+      }
+      return Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                  ],
+                ),
+                // SizedBox(height: 50),
+                if (!isEditMode)
                   Text(
                     "Let's create a plan for ${user.firstName}!!",
                     style: TextStyle(
@@ -43,130 +56,168 @@ class BuildProgramScreen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
+                SizedBox(height: 20),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: controller.weekDays.map((day) {
-                      final isSelected = controller.selectedDay == day;
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: controller.weekDays.map((day) {
+                    final isSelected = controller.selectedDay == day;
+
+                    return GestureDetector(
+                      onTap: () => controller.selectDay(day),
+                      child: Container(
+                        width: 45,
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        margin: EdgeInsets.symmetric(horizontal: 2),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? AppColor.primaryColor
+                              :
+                              //  Color(0xffFFEC8B),
+                              Colors.grey[300],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text(
+                            day.substring(0, 3),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: isSelected ? Colors.white : Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Enter the number of sets and repetitions you want to assign for this day's program:",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: controller.setsController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Sets',
+                          labelStyle: TextStyle(fontSize: 14),
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColor.primaryColor),
+                          ),
+                        ),
+                        style: TextStyle(fontSize: 14),
+                        onChanged: (value) {
+                          final sets = int.tryParse(value) ?? 3;
+                          controller.updateSets(sets);
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: controller.repsController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Reps',
+                          labelStyle: TextStyle(fontSize: 14),
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColor.primaryColor),
+                          ),
+                        ),
+                        style: TextStyle(fontSize: 14),
+                        onChanged: (value) {
+                          final reps = int.tryParse(value) ?? 10;
+                          controller.updateReps(reps);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 30),
+                Text(
+                  "Pick exercises for each muscle you want in today’s plan:",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 10),
+
+                Container(
+                  height: 42,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.muscleGroups.length,
+                    itemBuilder: (context, index) {
+                      final muscle = controller.muscleGroups[index];
+                      final isSelected = controller.selectedMuscle == muscle;
+                      final colors = [
+                        Color(0xffFDF6E4), // أصفر باهت
+                        Color(0xffF3E8FF), // بنفسجي فاتح
+                        Color(0xffE0F0FF), // أزرق فاتح
+                        Color(0xffDCFCE7), // أخضر ناعم
+                      ];
+                      final bgColor = colors[index % colors.length];
 
                       return GestureDetector(
-                        onTap: () => controller.selectDay(day),
+                        onTap: () {
+                          controller.selectedMuscle = muscle;
+                          controller.getExercisesByMuscle(muscle);
+                        },
                         child: Container(
-                          width: 45,
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          margin: EdgeInsets.symmetric(horizontal: 2),
+                          margin: EdgeInsets.symmetric(horizontal: 6),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           decoration: BoxDecoration(
-                            color: isSelected
-                                ? AppColor.primaryColor
-                                :
-                                //  Color(0xffFFEC8B),
-                                Colors.grey[300],
-                            borderRadius: BorderRadius.circular(12),
+                            color: isSelected ? AppColor.primaryColor : bgColor,
+                            borderRadius: BorderRadius.circular(20),
+                            border: isSelected
+                                ? Border.all(color: Colors.black12)
+                                : null,
                           ),
                           child: Center(
                             child: Text(
-                              day.substring(0, 3),
+                              muscle,
                               style: TextStyle(
+                                color:
+                                    isSelected ? Colors.white : Colors.black87,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 12,
-                                color: isSelected ? Colors.white : Colors.black,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                         ),
                       );
-                    }).toList(),
+                    },
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    "Enter the number of sets and repetitions you want to assign for this day's program:",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: controller.setsController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: 'Sets',
-                            labelStyle: TextStyle(fontSize: 14),
-                            isDense: true,
-                            contentPadding: EdgeInsets.symmetric(vertical: 8),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColor.primaryColor),
-                            ),
-                          ),
-                          style: TextStyle(fontSize: 14),
-                          onChanged: (value) {
-                            final sets = int.tryParse(value) ?? 3;
-                            controller.updateSets(sets);
-                          },
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                          controller: controller.repsController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: 'Reps',
-                            labelStyle: TextStyle(fontSize: 14),
-                            isDense: true,
-                            contentPadding: EdgeInsets.symmetric(vertical: 8),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: AppColor.primaryColor),
-                            ),
-                          ),
-                          style: TextStyle(fontSize: 14),
-                          onChanged: (value) {
-                            final reps = int.tryParse(value) ?? 10;
-                            controller.updateReps(reps);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: 30),
-
-                  // Text(
-                  //   "Enter the exercises you want to assign for this day's program:",
-                  //   style: TextStyle(
-                  //     fontSize: 14,
-                  //     fontWeight: FontWeight.w500,
-                  //   ),
-                  // ),
-                  Text(
-                    "Select exercises to include in today's plan:",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-
-                  // SizedBox(
-                  //                   height: 10,
-                  //                 ),
-                  controller.isLoading
-                      ? CircularProgressIndicator()
+                ),
+              
+                Expanded(
+                  child: controller.isLoading
+                      ? Center(child: CircularProgressIndicator())
                       : ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
                           itemCount: controller.exercises.length,
                           itemBuilder: (context, index) {
                             final exercise = controller.exercises[index];
@@ -236,23 +287,27 @@ class BuildProgramScreen extends StatelessWidget {
                             );
                           },
                         ),
+                ),
 
-                  SizedBox(height: 70),
-                ],
-              ),
+                // SizedBox(height: 70),
+              ],
             ),
           ),
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(16.0),
           child: CustomButton(
-            text: "Send Program",
+            text: isEditMode ? "Update Program" : "Send Program",
             onTap: () {
-              controller.makeProgram(traineeId: user.id);
+              if (isEditMode) {
+                // controller.updateProgram(user.id); // تنفذ التعديل
+              } else {
+                controller.makeProgram(traineeId: user.id); // تنشئ جديد
+              }
             },
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

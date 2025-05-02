@@ -2,6 +2,7 @@ import 'package:final_project/core/const_data/app_colors.dart';
 import 'package:final_project/view/home/static/static_trainer_section_data/static_scection_data.dart';
 import 'package:final_project/view/home/widget/marquee_text/marquee_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TrainerSectionCard extends StatelessWidget {
   final int index;
@@ -12,6 +13,9 @@ class TrainerSectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return GestureDetector(
       onTap: () {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -19,11 +23,12 @@ class TrainerSectionCard extends StatelessWidget {
         });
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 14, right: 14, top: 12, bottom: 5),
+        margin:
+            EdgeInsets.only(left: 14.r, right: 14.r, top: 12.r, bottom: 5.r),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(width: 1, color: AppColor.primaryColor),
+          border: Border.all(width: 1.w, color: AppColor.primaryColor),
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(65),
             topLeft: Radius.circular(15),
@@ -52,22 +57,20 @@ class TrainerSectionCard extends StatelessWidget {
                         topRight: Radius.circular(65),
                         topLeft: Radius.circular(15),
                       ),
-                      child: Container(
-                        child: Image.asset(
-                          StaticTrainerScectionData
-                                  .trainersSections[index].image_url.isNotEmpty
-                              ? StaticTrainerScectionData
-                                  .trainersSections[index].image_url
-                              : "assets/images/default.png",
-                          fit: BoxFit.cover,
-                        ),
+                      child: Image.asset(
+                        StaticTrainerScectionData
+                                .trainersSections[index].image_url.isNotEmpty
+                            ? StaticTrainerScectionData
+                                .trainersSections[index].image_url
+                            : "assets/images/default.png",
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(6.0),
+                    padding: EdgeInsets.all(isPortrait ? 6.r : 9.r),
                     child: Container(
-                      padding: const EdgeInsets.only(left: 7, right: 7),
+                      padding: EdgeInsets.only(left: 7.r, right: 7.r),
                       decoration: BoxDecoration(
                         border: Border.all(color: AppColor.primaryColor),
                         color: Colors.white,
@@ -76,7 +79,11 @@ class TrainerSectionCard extends StatelessWidget {
                       child: Text(
                         StaticTrainerScectionData.trainersSections[index].name,
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: screenWidth > 1000
+                              ? 15.sp
+                              : isPortrait
+                                  ? 10.sp
+                                  : 6.sp,
                           fontFamily: "SourceSerif4",
                           color: AppColor.primaryColor,
                           fontWeight: FontWeight.bold,

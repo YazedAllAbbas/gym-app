@@ -5,38 +5,51 @@ import 'package:final_project/core/service/link.dart';
 import 'package:final_project/core/service/my_service.dart';
 import 'package:final_project/core/service/session/user_info_controller.dart';
 import 'package:final_project/core/service/session/user_session.dart';
+import 'package:final_project/models/program_model/program_model.dart';
 import 'package:final_project/models/request_model/request_model.dart';
 import 'package:final_project/models/user_info_model/user_info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MyTraineeController extends GetxController {
+class ViewWorkoutController extends GetxController {
+  final UserInfoModel user;
+  ViewWorkoutController({required this.user});
   bool isLoading = false;
   StatusRequest responce = StatusRequest.loading;
   String responceMessage = '';
-  List<UserInfoModel> trainees = [];
-  Map<String, bool> traineeProgramStatus = {};
+  ProgramModel? program;
+  List<String> weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
   @override
   void onInit() {
-    super.onInit();
-    myTrainees();
+    getProgram();
   }
 
-  Future myTrainees() async {
+  String selectedDay = "Sunday";
+  void selectDay(String day) {
+    selectedDay = day;
+    update();
+  }
+
+  Future<void> getProgram() async {
     this.isLoading = true;
     this.responce = StatusRequest.loading;
     update();
 
-       final UserController userController = Get.find();
-      String coachId = userController.currentUser!.id.toString();
-  
-    print("@@@@@@@@@@@@@@@${coachId}");
+    int userId = user.id;
     var result =
-        await crud().getData("${AppLink.traineesWithSpecificCoach}/$coachId/");
+        await crud().getObject('${AppLink.gettrainerprogram}/$userId/');
+
     result.fold(
       (failure) {
         isLoading = false;
-
         if (failure == StatusRequest.failure) {
           this.responceMessage = crud.message;
           Get.snackbar(
@@ -58,48 +71,45 @@ class MyTraineeController extends GetxController {
           );
         } else if (failure == StatusRequest.offLineFailure) {
           Get.defaultDialog(
-              title: "خطأ", middleText: "لا يوجد اتصال بالإنترنت.");
+              title: "Error", middleText: "لا توجد اتصال بالإنترنت");
         } else if (failure == StatusRequest.serverFailure) {
-          Get.defaultDialog(title: "خطأ", middleText: "حدث خطأ في الخادم.");
+          Get.defaultDialog(title: "Error", middleText: "حدث خطأ في الخادم");
         }
         update();
       },
-      (success) async {
-        // إذا نجح الطلب
+      (success) {
         responce = StatusRequest.success;
-        // coaches = success.map((item) => Coach.fromJson(item)).toList();
-        // List<dynamic> data = success;
 
-        trainees = success.map((item) => UserInfoModel.fromJson(item)).toList();
-        print(trainees);
-        //  إرسال الطلبات المتوازية لحالة البرنامج لكل متدرب
-        List<Future> futures = [];
-
-        for (UserInfoModel trainee in trainees) {
-          futures.add(
-            crud()
-                .getObject("https://mohammedmoh.pythonanywhere.com/gettrainerinfo/${trainee.id}/$coachId/")
-                .then((result) {
-              result.fold(
-                (failure) {
-                  traineeProgramStatus[trainee.id.toString()] = false;
-                },
-                (success) {
-                  traineeProgramStatus[trainee.id.toString()] =
-                      success['program_status'] ?? false;
-                },
-              );
-            }),
-          );
+        try {
+          program = ProgramModel.fromJson(success);
+          isLoading = false;
+        } catch (e) {
+          print("Error parsing program: $e");
+          isLoading = false;
         }
 
-    
-        await Future.wait(futures);
-        //    coaches = data.map((item) => Coach.fromJson(item)).toList();
-        //  coaches = result;
-        isLoading = false;
         update();
       },
     );
   }
+
+  Map<String, List<ExerciseElement>> getExercisesByMuscleForSelectedDay() {
+    final exercisesForDay =
+        program!.exercises.where((e) => e.day == selectedDay);
+    final Map<String, List<ExerciseElement>> grouped = {};
+    for (var exercise in exercisesForDay) {
+      final muscle = exercise.exercise.muscleGroup ?? 'عضلة غير معروفة';
+      if (!grouped.containsKey(muscle)) {
+        grouped[muscle] = [];
+      }
+      grouped[muscle]!.add(exercise);
+    }
+    return grouped;
+  }
+
+  // @override
+  // void onInit() {
+  //   super.onInit();
+
+  // }
 }

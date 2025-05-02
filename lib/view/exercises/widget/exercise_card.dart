@@ -3,6 +3,7 @@ import 'package:final_project/models/exersice_model/exersice_model.dart';
 
 import 'package:final_project/view/exercises/exercises_screen/exercise_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ExerciseCard extends StatelessWidget {
@@ -15,43 +16,89 @@ class ExerciseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
     return Container(
+      width: screenWidth,
       decoration: BoxDecoration(
-        color: const Color(0xffEFF3F2).withOpacity(0.9),
-        borderRadius: BorderRadius.circular(15),
+        color: AppColor.blue,
+        borderRadius: BorderRadius.circular(15.r),
         boxShadow: const [
           BoxShadow(
-            blurRadius: 3.5,
-            color: AppColor.primaryColor,
-            offset: Offset(0, 0),
+            blurRadius: 4,
+            color: Colors.black12,
+            offset: Offset(0, 2),
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-      margin: const EdgeInsets.only(top: 10, bottom: 10, left: 16, right: 16),
+      padding: EdgeInsets.symmetric(vertical: 4.r, horizontal: 2.2),
+      margin: EdgeInsets.symmetric(horizontal: 16.r, vertical: 7.r),
       child: ListTile(
         onTap: () => Get.to(ExerciseDetailsScreen(
           exercise: exercise,
         )),
-        title: Text(
-          exercise.name,
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            color: Colors.grey[800],
-            fontSize: 19,
-            fontFamily: "SourceSerif4",
-          ),
+        title: isPortrait
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    exercise.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Colors.grey[800],
+                      fontSize: 19.sp,
+                      fontFamily: "SourceSerif4",
+                    ),
+                  ),
+                  Text(
+                    exercise.muscleGroup,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: AppColor.primaryColor,
+                      fontSize: 17.sp,
+                      fontFamily: "SourceSerif4",
+                    ),
+                  ),
+                ],
+              )
+            : Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: exercise.name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.grey[800],
+                        fontSize: 11.sp,
+                        fontFamily: "SourceSerif4",
+                      ),
+                    ),
+                    TextSpan(
+                      text: '  /  ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.grey,
+                        fontSize: 11.sp,
+                        fontFamily: "SourceSerif4",
+                      ),
+                    ),
+                    TextSpan(
+                      text: exercise.muscleGroup,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: AppColor.primaryColor,
+                        fontSize: 10.sp,
+                        fontFamily: "SourceSerif4",
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+        trailing: Icon(
+          Icons.navigate_next_rounded,
+          size: isPortrait ? 20.r : 32.r,
         ),
-        subtitle: Text(
-          exercise.muscleGroup,
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
-            color: AppColor.primaryColor,
-            fontSize: 17,
-            fontFamily: "SourceSerif4",
-          ),
-        ),
-        trailing: const Icon(Icons.navigate_next_rounded),
       ),
     );
   }

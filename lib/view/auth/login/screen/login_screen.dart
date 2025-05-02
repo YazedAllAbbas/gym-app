@@ -1,3 +1,4 @@
+import 'package:final_project/core/class/circular_progress_indicator_custom.dart';
 import 'package:final_project/core/const_data/app_colors.dart';
 import 'package:final_project/view/auth/login/controller/login_controller.dart';
 import 'package:final_project/view/auth/widget/custom_form_text_field.dart';
@@ -16,133 +17,137 @@ class LoginScreen extends StatelessWidget {
             Form(
               key: controller.formKey,
               child: Scaffold(
-                  body: SingleChildScrollView(
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                            height: media.width * 0.3,
-                            ),
-                            Text(
-                              'Welcome Back',style: TextStyle(
-                                      color: Colors.black,fontSize: 32,
-                                      fontFamily: "SourceSerif4",
-                                    //  fontWeight: FontWeight.bold,
-                                    fontWeight: FontWeight.w600,
-                              )
-                            ),
-                            SizedBox(
-                                height: media.width * 0.18,
-                            ),
-                            CustomFormTextField(
-                              hintText: 'username',
-                              myController: controller.usernameController,
-                              myValid: controller.validUsername,
-                            ),
-                            SizedBox(
-                              height: media.width * 0.04,
-
-                            ),
-                            CustomFormTextField(
-                              hintText: 'Password',
-                              myController: controller.passwordController,
-                              myValid: controller.validPassword,
-                            ),
-                            // SizedBox(
-                            //   height: 40,
-                            // ),
-                            SizedBox(
-                              height: media.width * 0.35,
-                            ),
-                            CustomButton(
-                              text: 'Login',
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                            controller.login();
-                              },
-                            ),
-                            const SizedBox(height: 10),
-                            Center(
-                                child: Text(
-                                  'Forgot your password?',
-                                  style: TextStyle(
-                                    
-                                      color: AppColor.grey,
-                                       decoration: TextDecoration.underline,
-                            
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14),
-                                )),
-                            const SizedBox(height: 50),
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  // const Text(
-                                  //   'تسجيل الدخول بواسطة',
-                                  //   style: TextStyle(
-                                  //       color: Colors.black,
-                                  //       fontFamily: "Cairo",
-                                  //       fontWeight: FontWeight.w400,
-                                  //       fontSize: 18),
-                                  // ),
-                                  // const SizedBox(height: 10),
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.center,
-                                  //   children: [
-                                  //     IconButton(
-                                  //       icon: Image.asset(
-                                  //         'assets/images/Icon (3).png',
-                                  //         height: 40,
-                                  //         width: 40,
-                                  //       ),
-                                  //       onPressed: () {},
-                                  //     ),
-                                  //     IconButton(
-                                  //       icon: Image.asset(
-                                  //         'assets/images/Icon (2).png',
-                                  //         height: 40,
-                                  //         width: 40,
-                                  //       ),
-                                  //       onPressed: () {},
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  //const SizedBox(height: 30),
-                                  const Text(
-                                    'Don’t have an account yet? ',
+                  body: Stack(
+                  children: [ SingleChildScrollView(
+                      child: SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                              height: media.width * 0.3,
+                              ),
+                              Text(
+                                'Welcome Back',style: TextStyle(
+                                        color: Colors.black,fontSize: 32,
+                                        fontFamily: "SourceSerif4",
+                                      //  fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
+                                )
+                              ),
+                              SizedBox(
+                                  height: media.width * 0.18,
+                              ),
+                              CustomFormTextField(
+                                hintText: 'username',
+                                myController: controller.usernameController,
+                                myValid: controller.validUsername,
+                              ),
+                              SizedBox(
+                                height: media.width * 0.04,
+                    
+                              ),
+                              CustomFormTextField(
+                                hintText: 'Password',
+                                myController: controller.passwordController,
+                                myValid: controller.validPassword,
+                              ),
+                              // SizedBox(
+                              //   height: 40,
+                              // ),
+                              SizedBox(
+                                height: media.width * 0.35,
+                              ),
+                              CustomButton(
+                                text: 'Login',
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                              controller.login();
+                                },
+                              ),
+                              const SizedBox(height: 10),
+                              Center(
+                                  child: Text(
+                                    'Forgot your password?',
                                     style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: "Cairo",
-                                        
+                                      
+                                        color: AppColor.grey,
+                                         decoration: TextDecoration.underline,
+                              
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 14),
-                                  ),
-                                  // const SizedBox(height: 10),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.offNamed('/registerScreen');
-                                    },
-                                    child:  Text(
-                                      'Register',
+                                  )),
+                              const SizedBox(height: 50),
+                              Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // const Text(
+                                    //   'تسجيل الدخول بواسطة',
+                                    //   style: TextStyle(
+                                    //       color: Colors.black,
+                                    //       fontFamily: "Cairo",
+                                    //       fontWeight: FontWeight.w400,
+                                    //       fontSize: 18),
+                                    // ),
+                                    // const SizedBox(height: 10),
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.center,
+                                    //   children: [
+                                    //     IconButton(
+                                    //       icon: Image.asset(
+                                    //         'assets/images/Icon (3).png',
+                                    //         height: 40,
+                                    //         width: 40,
+                                    //       ),
+                                    //       onPressed: () {},
+                                    //     ),
+                                    //     IconButton(
+                                    //       icon: Image.asset(
+                                    //         'assets/images/Icon (2).png',
+                                    //         height: 40,
+                                    //         width: 40,
+                                    //       ),
+                                    //       onPressed: () {},
+                                    //     ),
+                                    //   ],
+                                    // ),
+                                    //const SizedBox(height: 30),
+                                    const Text(
+                                      'Don’t have an account yet? ',
                                       style: TextStyle(
-                                          color: AppColor.grey,
-                                          fontFamily: "Poppins",
+                                          color: Colors.black,
+                                          fontFamily: "Cairo",
+                                          
                                           fontSize: 14),
                                     ),
-                                  ),
-                                ],
+                                    // const SizedBox(height: 10),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.offNamed('/registerScreen');
+                                      },
+                                      child:  Text(
+                                        'Register',
+                                        style: TextStyle(
+                                            color: AppColor.grey,
+                                            fontFamily: "Poppins",
+                                            fontSize: 14),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                             SizedBox(
-                  height: media.width * 0.04,
-                ),
-                          ],
+                               SizedBox(
+                    height: media.width * 0.04,
+                                    ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  )),
+                     if (controller.isLoading) const CircularProgressIndicatorCustom(),
+    ]  )
+                  ),
             )
     );
   }

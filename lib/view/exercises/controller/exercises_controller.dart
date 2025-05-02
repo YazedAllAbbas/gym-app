@@ -13,15 +13,22 @@ class ExercisesController extends GetxController {
   String responceMessage = '';
   List<ExerciseModel> exercises = [];
   List<ExerciseModel> exercisesByMuscle = [];
+  TextEditingController textController = TextEditingController();
+
+  void setSearchQuery(String value) {
+    searchQuery = value;
+    update();
+  }
+
+  @override
+  void onClose() {
+    textController.dispose();
+    super.onClose();
+  }
 
   void toggleView(bool value) {
     showAll = value;
 
-    update();
-  }
-
-  void setSearchQuery(String query) {
-    searchQuery = query;
     update();
   }
 
